@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_main_menu"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:addStatesFromChildren="false"
+android:background="@color/colorPrimary"
+tools:context="com.abderraouf.gattal.tictactoe.MainMenu">
+
+    <Button
+    android:id="@+id/singleplayer"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_above="@+id/multiplayer"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:background="@drawable/buttonripples"
+    android:onClick="PlayAlone"
+    android:text="Single Player"
+    android:textColor="#FFFFFF"
+    android:textSize="24sp" />
+
+    <Button
+    android:id="@+id/multiplayer"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_above="@+id/exit"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:background="@drawable/buttonripples"
+    android:onClick="Play"
+    android:text="Multi Player"
+    android:textColor="#FFFFFF"
+    android:textSize="24sp" />
+
+    <Button
+    android:id="@+id/exit"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:background="@drawable/buttonripples"
+    android:onClick="Exit"
+    android:text="exit"
+    android:textColor="#FFFFFF"
+    android:textSize="24sp" />
+
+    <ImageView
+    android:id="@+id/imageView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/singleplayer"
+    android:layout_centerHorizontal="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginBottom="16dp"
+    android:layout_marginTop="20dp"
+    android:src="@drawable/mainlogo"
+    android:contentDescription="The Main Logo"/>
+
+    <FrameLayout
+        android:id="@+id/Popsup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    </FrameLayout>
+
+</RelativeLayout>

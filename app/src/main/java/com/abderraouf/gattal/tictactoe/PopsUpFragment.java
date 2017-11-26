@@ -2,12 +2,15 @@ package com.abderraouf.gattal.tictactoe;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -16,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.abderraouf.gattal.GameCode.ComputerAi;
+import com.abderraouf.gattal.GameCode.GameManager;
 import com.abderraouf.gattal.GameCode.Player;
 
 import java.net.URLConnection;
@@ -87,26 +91,46 @@ public class PopsUpFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       /* TextView startplaying = (TextView) getView().findViewById(R.id.Confirm);
-        if(!vsComputer && i==1) startplaying.setText("Continue");
+
+        final View view = inflater.inflate(R.layout.fragment_pops_up, container, false);
+        EditText playername = (EditText)view.findViewById(R.id.playername);
+        playername.setText(GameManager.sharedInfo.getString("mainPlayer","Player1"));
+        TextView startplaying = (TextView) view.findViewById(R.id.Confirm);
         startplaying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(i==1) MainGameScreen.player1 = getPlayer();
-                else MainGameScreen.player2 = getPlayer();
-                i++;
+                //startActivity(new Intent(view.getContext(),MainGameScreen.class));
+                getPlayer(view);
+                GameManager.sharedInfoEditor.putInt("firstOpen",0).apply();
+
+                getFragmentManager().beginTransaction()
+                        .remove(PopsUpFragment.this).commit();
             }
         });
 
-        TextView Cancel = (TextView) getView().findViewById(R.id.Exit);
+        TextView Cancel = (TextView) view.findViewById(R.id.Exit);
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(GameManager.getFirstOpen()==1){
+                    getFragmentManager().beginTransaction()
+                            .remove(PopsUpFragment.this).commit();
+                    getActivity().finishAffinity();
+                }
+                else{
+                    getFragmentManager().beginTransaction()
+                            .remove(PopsUpFragment.this).commit();
+                }
+            }
+        });
 
-
-        LinearLayout lin = (LinearLayout) getView().findViewById(R.id.linlayout);
+        LinearLayout lin = (LinearLayout) view.findViewById(R.id.linlayout);
         lin.setOnClickListener(this);
-        addListener();*/
+        addListener(view);
 
-        return inflater.inflate(R.layout.fragment_pops_up, container, false);
+        return view;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -137,9 +161,10 @@ public class PopsUpFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    public void addListener() {
-        final CheckBox x = (CheckBox) getView().findViewById(R.id.Xcheckbox);
-        final CheckBox o = (CheckBox) getView().findViewById(R.id.Ocheckbox);
+    public void addListener(View view) {
+
+        final CheckBox x = (CheckBox) view.findViewById(R.id.Xcheckbox);
+        final CheckBox o = (CheckBox) view.findViewById(R.id.Ocheckbox);
 
         x.setChecked(true);
         o.setOnClickListener(new View.OnClickListener() {
@@ -176,12 +201,28 @@ public class PopsUpFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    public void getPlayer(View view){
 
-    public Player getPlayer(){
+        final EditText playername = (EditText)view.findViewById(R.id.playername);
+        GameManager.sharedInfoEditor.putString("mainPlayer",playername.getText().toString()).apply();
+        GameManager.setMainPlayer(new Player(playername.getText().toString()));
+        playername.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
-        EditText playername = (EditText)getView().findViewById(R.id.playername);
-        Player player = new Player(playername.getText().toString());
-        return player;
+            @Override
+            public boolean onEditorAction(TextView v, int actionId,
+                                          KeyEvent event) {
+                if (event != null&& (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager in = (InputMethodManager)getActivity().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    in.hideSoftInputFromWindow(playername.getWindowToken(), 0);
+
+                    return true;
+
+                }
+                return false;
+            }
+        });
+        return;
     }
 
     /**

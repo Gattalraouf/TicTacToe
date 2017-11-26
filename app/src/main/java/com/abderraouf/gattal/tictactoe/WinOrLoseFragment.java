@@ -1,12 +1,17 @@
 package com.abderraouf.gattal.tictactoe;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.abderraouf.gattal.GameCode.GameManager;
 
 
 /**
@@ -63,8 +68,27 @@ public class WinOrLoseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_win_or_lose, container, false);
+        ImageView close = view.findViewById(R.id.Close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(),MainMenu.class));
+            }
+        });
+
+        ImageView playAgain = view.findViewById(R.id.PlayAgain);
+        playAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction()
+                        .remove(WinOrLoseFragment.this).commit();
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_win_or_lose, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -83,12 +107,26 @@ public class WinOrLoseFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof FragmentCommunicator) {
+            communicator = (FragmentCommunicator) activity;
+        } else {
+            throw new RuntimeException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        //mListener = null;
+        communicator.fragmentDetached();
     }
 
     /**
@@ -101,8 +139,30 @@ public class WinOrLoseFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public void changeImage(int res){
+        ImageView img = (ImageView) getView().findViewById(R.id.WinLoseBoard);
+        if(res==2){
+            img.setImageResource(R.drawable.nullgame);
+        }
+        else if(res == MainGameScreen.xoro){
+            img.setImageResource(R.drawable.youwin);
+        }
+        else{
+            img.setImageResource(R.drawable.youlose);
+        }
     }
+
+    public interface OnFragmentInteractionListener {
+
+        void onFragmentInteraction(Uri uri);
+
+    }
+
+
+    FragmentCommunicator communicator;
+
+    public interface FragmentCommunicator {
+        public void fragmentDetached();
+    }
+
 }

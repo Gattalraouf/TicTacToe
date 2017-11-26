@@ -13,9 +13,8 @@ public class Sign {
     static int sign=-1;
     static AnimationDrawable animation;
     static public void Draw( int xoro,int pos,ImageView o){
-        //ImageView o = (ImageView) view;
+
         if(xoro==1) {
-            //ImageView Sign = (ImageView) findViewById(R.id.ball);
             o.setImageResource(R.drawable.xanim);
             animation = (AnimationDrawable) o.getDrawable();
             animation.start();

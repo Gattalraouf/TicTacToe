@@ -3,16 +3,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:context="com.abderraouf.gattal.tictactoe.WinOrLoseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        >
 
-    <ImageView
-        android:id="@+id/imageView2"
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/colorPrimary"
+            android:alpha="0.7"/>
+
+        <ImageView
+        android:id="@+id/WinLoseBoard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         app:srcCompat="@drawable/youlose" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/WinLoseBoard"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:visibility="invisible"
+                />
+
+            <ImageView
+                android:id="@+id/Close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/cancel"
+                android:layout_weight="0.3"/>
+
+
+            <ImageView
+                android:id="@+id/PlayAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/refresh"
+                android:layout_weight="0.3" />
+
+            <ImageView
+                android:id="@id/Close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:visibility="invisible" />
+
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
 
 </FrameLayout>

@@ -97,33 +97,7 @@ public class ComputerAi extends Player {
         }
         return SidePos;
     }
-    public int RandomePlay(){
-        Random r = new Random();
-        int randome = r.nextInt(8);
-        if(randome<=6) randome=-1;
-        return randome;
-    }
 
-    /*
-    *Win:
-        If you have two in a row, you can place a third to get three in a row.
-    *Block:
-        If the opponent has two in a row, you must play the third to block the opponent.
-    Fork:
-        Create an opportunity where you have two threats to win (two non-blocked lines of 2).
-    Blocking an opponent's fork:
-        If there is a configuration where the opponent can fork, you must block that fork.
-    *Center:
-        You play the center if open.
-    *Opposite corner:
-        If the opponent is in the corner, you play the opposite corner.
-    *Empty corner:
-        You play in a corner square.
-    *Empty side:
-        You play in a middle square on any of the 4 sides.
-
-    Pick the highest possible on the list
-    */
     public void ComputerPlay(int SignType, GridLayout grid){
         ImageView view;
         int i=-1;

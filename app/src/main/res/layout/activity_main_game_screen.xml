@@ -149,6 +149,7 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/board1" />
 
+
             <GridLayout
                 android:id="@+id/grid"
                 android:layout_width="match_parent"
@@ -257,10 +258,27 @@
 
 
             </GridLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:visibility="gone"
+                android:id="@+id/MultiClickIssue">
+
+            </FrameLayout>
+
         </RelativeLayout>
+
+
 
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/WinLoseFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    </FrameLayout>
 
 </RelativeLayout>

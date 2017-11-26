@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/activity_main_menu"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:addStatesFromChildren="false"
-android:background="@color/colorPrimary"
-tools:context="com.abderraouf.gattal.tictactoe.MainMenu">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:addStatesFromChildren="false"
+    android:background="@color/colorPrimary"
+    tools:context="com.abderraouf.gattal.tictactoe.MainMenu">
 
     <Button
     android:id="@+id/singleplayer"
@@ -21,7 +22,7 @@ tools:context="com.abderraouf.gattal.tictactoe.MainMenu">
     android:onClick="PlayAlone"
     android:text="Single Player"
     android:textColor="#FFFFFF"
-    android:textSize="24sp" />
+    android:textSize="24sp" android:stateListAnimator="@null"/>
 
     <Button
     android:id="@+id/multiplayer"
@@ -35,7 +36,7 @@ tools:context="com.abderraouf.gattal.tictactoe.MainMenu">
     android:onClick="Play"
     android:text="Multi Player"
     android:textColor="#FFFFFF"
-    android:textSize="24sp" />
+    android:textSize="24sp" android:stateListAnimator="@null"/>
 
     <Button
     android:id="@+id/exit"
@@ -49,7 +50,18 @@ tools:context="com.abderraouf.gattal.tictactoe.MainMenu">
     android:onClick="Exit"
     android:text="exit"
     android:textColor="#FFFFFF"
-    android:textSize="24sp" />
+    android:textSize="24sp" android:stateListAnimator="@null"/>
+
+    <ImageView
+        android:id="@+id/Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/singleplayer"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="16dp"
+        android:onClick="Settings"
+        app:srcCompat="@drawable/ic_settings"/>
 
     <ImageView
     android:id="@+id/imageView"
@@ -67,6 +79,7 @@ tools:context="com.abderraouf.gattal.tictactoe.MainMenu">
         android:id="@+id/Popsup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
         >
 
     </FrameLayout>

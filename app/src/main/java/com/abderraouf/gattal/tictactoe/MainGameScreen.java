@@ -21,7 +21,8 @@ import static java.lang.Math.abs;
 
 public class MainGameScreen extends AppCompatActivity implements
         WinOrLoseFragment.OnFragmentInteractionListener,
-        WinOrLoseFragment.FragmentCommunicator {
+        WinOrLoseFragment.FragmentCommunicator,
+        WinOrLoseFragment.FragmentResultDetector{
     static boolean vsComputer ;
     static Player player2 = new Player("Bot");
     static int xoro = 1;
@@ -55,25 +56,23 @@ public class MainGameScreen extends AppCompatActivity implements
         return result;
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game_screen);
         reinitializeGame();
-        TextView Player1 = (TextView) findViewById(R.id.player1);
-        TextView Player2 = (TextView) findViewById(R.id.player2);
+        TextView Player1 = findViewById(R.id.player1);
+        TextView Player2 = findViewById(R.id.player2);
         Player1.setText(GameManager.sharedInfo.getString("mainPlayer","Player1"));
         if(!vsComputer) player2.setPlayerName("Guest");
         Player2.setText(player2.getPlayerName());
 
-        GridLayout gl = (GridLayout)findViewById(R.id.grid);
+        GridLayout gl = findViewById(R.id.grid);
         ViewTreeObserver vto = gl.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {@Override public void onGlobalLayout()
         {
 
-            GridLayout gl = (GridLayout) findViewById(R.id.grid);
+            GridLayout gl = findViewById(R.id.grid);
             fillview(gl);
 
             ViewTreeObserver obs = gl.getViewTreeObserver();
@@ -82,10 +81,8 @@ public class MainGameScreen extends AppCompatActivity implements
 
     }
 
-    public void fillview(final GridLayout gl)
-    {
+    public void fillview(final GridLayout gl) {
         ImageView img;
-
         int idealChildWidth =  (gl.getWidth()/gl.getColumnCount());
         int idealChildHeigth= (gl.getHeight()/gl.getColumnCount());
         for( int i=0; i< gl.getChildCount();i++)
@@ -95,7 +92,7 @@ public class MainGameScreen extends AppCompatActivity implements
                 @Override
                 public void onClick(View v) {
                     final GridLayout gridLayout = findViewById(R.id.grid);
-                    final FrameLayout issue = (FrameLayout) findViewById(R.id.MultiClickIssue);
+                    final FrameLayout issue = findViewById(R.id.MultiClickIssue);
                     if(vsComputer) issue.setVisibility(View.VISIBLE);
                     final Handler handler = new Handler();
                     final ComputerAi comp = new ComputerAi();
@@ -139,7 +136,6 @@ public class MainGameScreen extends AppCompatActivity implements
         }
     }
 
-
     public void updateScore(int res){
         if(res==1){
             TextView score = findViewById(R.id.XScore);
@@ -159,16 +155,14 @@ public class MainGameScreen extends AppCompatActivity implements
     }
 
     public void callWinLoseFragment(int res){
-
+        resu=res;
         WinOrLoseFragment frag;
         FragmentManager fm1 = MainGameScreen.this
                 .getSupportFragmentManager();
         FragmentTransaction ft1 = fm1.beginTransaction();
         frag = new WinOrLoseFragment();
-
         ft1.add(R.id.WinLoseFragment, frag);
         ft1.commit();
-        this.resu=res;
     }
 
     public void reinitializeGame(){
@@ -185,8 +179,9 @@ public class MainGameScreen extends AppCompatActivity implements
         updateScore(resu);
         xo=xoro;
         won=false;
-        GameManager.board= new int[] {2,2,2,2,2,2,2,2,2};
-
+        GameManager.board = new int[] {2,2,2,2,2,2,2,2,2};
+        FrameLayout issue = findViewById(R.id.MultiClickIssue);
+        issue.setVisibility(View.GONE);
         GridLayout gl = findViewById(R.id.grid);
         for(int i=0;i<gl.getChildCount();i++){
             ImageView img = (ImageView) gl.getChildAt(i);
@@ -194,4 +189,8 @@ public class MainGameScreen extends AppCompatActivity implements
         }
     }
 
+    @Override
+    public int getResult() {
+        return resu;
+    }
 }

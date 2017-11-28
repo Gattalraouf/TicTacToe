@@ -13,11 +13,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
 import com.abderraouf.gattal.GameCode.GameManager;
 
 public class MainMenu extends AppCompatActivity implements PopsUpFragment.OnFragmentInteractionListener {
-
 
     public static Context contextOfApplication;
 
@@ -36,7 +34,6 @@ public class MainMenu extends AppCompatActivity implements PopsUpFragment.OnFrag
     }
 
     public void Exit(View view){
-
         onDestroy();
     }
 
@@ -68,8 +65,6 @@ public class MainMenu extends AppCompatActivity implements PopsUpFragment.OnFrag
         }
 
     }
-
-
 
     @Override
     public void onFragmentInteraction(Uri uri) {

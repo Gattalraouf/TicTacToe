@@ -3,7 +3,6 @@ package com.abderraouf.gattal.tictactoe;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,8 +13,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.abderraouf.gattal.GameCode.GameManager;
+import com.abderraouf.gattal.GameCode.Player;
 
-public class MainMenu extends AppCompatActivity implements PopsUpFragment.OnFragmentInteractionListener {
+public class MainMenu extends AppCompatActivity  {
 
     public static Context contextOfApplication;
 
@@ -24,23 +24,25 @@ public class MainMenu extends AppCompatActivity implements PopsUpFragment.OnFrag
     }
 
     public void Play(View view){
+        MainGameScreen.player2 = new Player("Guest");
         MainGameScreen.vsComputer=false;
         Intent intent = new Intent(view.getContext(),MainGameScreen.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void PlayAlone(View view){
+        MainGameScreen.player2 = new Player("BOT");
         MainGameScreen.vsComputer=true;
         Intent intent = new Intent(getApplicationContext(),MainGameScreen.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void Exit(View view){
-        onDestroy();
+        this.finishAffinity();
     }
 
     public void Settings(View view){
@@ -73,11 +75,6 @@ public class MainMenu extends AppCompatActivity implements PopsUpFragment.OnFrag
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
@@ -92,12 +89,6 @@ public class MainMenu extends AppCompatActivity implements PopsUpFragment.OnFrag
             }
         }
         return super.dispatchTouchEvent(event);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        this.finishAffinity();
     }
 
 }

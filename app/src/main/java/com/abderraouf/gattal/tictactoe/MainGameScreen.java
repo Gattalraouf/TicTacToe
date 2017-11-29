@@ -23,13 +23,13 @@ public class MainGameScreen extends AppCompatActivity implements
         WinOrLoseFragment.FragmentCommunicator,
         WinOrLoseFragment.FragmentResultDetector{
     static boolean vsComputer ;
-    static Player player2 = new Player("Bot");
-    static int xoro = 1;
+    static Player player2;
+    static int xoro=1;
     int resu=2;
     AnimationDrawable animation;
     boolean won = false;
     int[][] winpos={{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}};
-    static int xo=xoro;
+    static int xo = xoro;
 
     public int WinLoseNull(){
         int result=-1;
@@ -65,7 +65,6 @@ public class MainGameScreen extends AppCompatActivity implements
         Player1.setText(GameManager.sharedInfo.getString("mainPlayer","Player1"));
         if(!vsComputer) player2.setPlayerName("Guest");
         Player2.setText(player2.getPlayerName());
-
         GridLayout gl = findViewById(R.id.grid);
         ViewTreeObserver vto = gl.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {@Override public void onGlobalLayout()
@@ -84,21 +83,39 @@ public class MainGameScreen extends AppCompatActivity implements
         ImageView img;
         int idealChildWidth =  (gl.getWidth()/gl.getColumnCount());
         int idealChildHeigth= (gl.getHeight()/gl.getColumnCount());
+        final GridLayout gridLayout = findViewById(R.id.grid);
+        final FrameLayout issue = findViewById(R.id.MultiClickIssue);
+        final Handler handler = new Handler();
+        final ComputerAi comp = new ComputerAi();
+        if(xoro==0&&vsComputer) {
+            issue.setVisibility(View.VISIBLE);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    comp.ComputerPlay(abs(xoro - 1), gridLayout);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            WinLoseNull();
+                        }
+                    }, 300);
+                    issue.setVisibility(View.GONE);
+                }
+            }, 300);
+        }
+
+        if(!vsComputer)xo=1;
+        else xo=xoro;
         for( int i=0; i< gl.getChildCount();i++)
         {
             img = (ImageView) gl.getChildAt(i);
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final GridLayout gridLayout = findViewById(R.id.grid);
-                    final FrameLayout issue = findViewById(R.id.MultiClickIssue);
-                    if(vsComputer) issue.setVisibility(View.VISIBLE);
-                    final Handler handler = new Handler();
-                    final ComputerAi comp = new ComputerAi();
                     ImageView o = (ImageView) gridLayout.getChildAt(gridLayout.indexOfChild(v));
                     int pos = Integer.parseInt(o.getTag().toString());
-
                     if (GameManager.board[pos] == 2) {
+                        if(vsComputer) issue.setVisibility(View.VISIBLE);
                         if (xo == 1) {//chose x to play with
                             o.setImageResource(R.drawable.xanim);
                             if (!vsComputer) xo = 0;
@@ -124,7 +141,7 @@ public class MainGameScreen extends AppCompatActivity implements
                                     }, 300);
                                     issue.setVisibility(View.GONE);
                                 }
-                            }, 1000);
+                            }, 300);
                         }
 
                     }
@@ -181,10 +198,13 @@ public class MainGameScreen extends AppCompatActivity implements
             ImageView img = (ImageView) gl.getChildAt(i);
             img.setImageResource(0);
         }
+        fillview(gl);
     }
 
     @Override
     public int getResult() {
         return resu;
     }
+
+
 }

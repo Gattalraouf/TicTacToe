@@ -1,9 +1,7 @@
 package com.abderraouf.gattal.tictactoe;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,7 +32,9 @@ public class WinOrLoseFragment extends Fragment {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(),MainMenu.class));
+                Intent intent = new Intent(new Intent(v.getContext(),MainMenu.class));
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 
@@ -60,6 +60,7 @@ public class WinOrLoseFragment extends Fragment {
         }
         return mView;
     }
+
 
 
     @Override

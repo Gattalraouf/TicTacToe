@@ -65,7 +65,8 @@
                 android:layout_alignRight="@id/players"
                 android:layout_alignBottom="@id/players"
                 android:gravity="center"
-                android:text="Player2"
+                android:layout_marginRight="15dp"
+                android:text="BOT"
                 android:paddingRight="25dp"
                 android:textColor="@color/colorAccent"
                 android:textSize="22sp" />

@@ -3,9 +3,7 @@ package com.abderraouf.gattal.GameCode;
 
 import android.widget.GridLayout;
 import android.widget.ImageView;
-
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import static com.abderraouf.gattal.GameCode.GameManager.board;
 import static java.lang.Math.abs;
 
@@ -100,7 +98,7 @@ public class ComputerAi extends Player {
 
     public void ComputerPlay(int SignType, GridLayout grid){
         ImageView view;
-        int i=-1;
+        int i;
         int j=abs(SignType-1);
         if(GameManager.board[4]==j) {
             if((i=WinOrBlock(true,SignType))!=-1){//know if it is a win play and do it ;)

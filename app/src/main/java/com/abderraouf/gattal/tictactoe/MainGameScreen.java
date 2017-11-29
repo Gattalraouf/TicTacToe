@@ -1,7 +1,6 @@
 package com.abderraouf.gattal.tictactoe;
 
 import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;

@@ -10,7 +10,7 @@ import static com.abderraouf.gattal.GameCode.GameManager.board;
  */
 
 public class Sign {
-    static int sign=-1;
+
     static AnimationDrawable animation;
     static public void Draw( int xoro,int pos,ImageView o){
 
@@ -19,14 +19,12 @@ public class Sign {
             animation = (AnimationDrawable) o.getDrawable();
             animation.start();
             board[pos]=1;
-            xoro=0;
         }
         else {
             o.setImageResource(R.drawable.oanim);
             animation = (AnimationDrawable) o.getDrawable();
             animation.start();
             board[pos]=0;
-            xoro=1;
         }
     }
 }

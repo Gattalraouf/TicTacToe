@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.abderraouf.gattal.GameCode.GameManager;
-import com.abderraouf.gattal.GameCode.Player;
 import static com.abderraouf.gattal.tictactoe.MainGameScreen.xoro;
 
 
@@ -125,7 +124,6 @@ public class PopsUpFragment extends Fragment implements View.OnClickListener{
 
         final EditText playername = view.findViewById(R.id.playername);
         GameManager.sharedInfoEditor.putString("mainPlayer",playername.getText().toString()).apply();
-        GameManager.setMainPlayer(new Player(playername.getText().toString()));
         playername.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override

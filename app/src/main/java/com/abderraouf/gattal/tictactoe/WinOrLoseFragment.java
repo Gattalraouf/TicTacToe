@@ -14,7 +14,6 @@ import android.widget.ImageView;
 public class WinOrLoseFragment extends Fragment {
 
     private View mView;
-    private OnFragmentInteractionListener mListener;
 
     public WinOrLoseFragment() {
         // Required empty public constructor
@@ -62,17 +61,6 @@ public class WinOrLoseFragment extends Fragment {
         return mView;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -98,18 +86,12 @@ public class WinOrLoseFragment extends Fragment {
         communicator.fragmentDetached();
     }
 
-    public interface OnFragmentInteractionListener {
-
-        void onFragmentInteraction(Uri uri);
-
-    }
-
-    FragmentCommunicator communicator;
+    private FragmentCommunicator communicator;
     public interface FragmentCommunicator {
         public void fragmentDetached();
     }
 
-    FragmentResultDetector Detector;
+    private FragmentResultDetector Detector;
     public interface FragmentResultDetector {
         public int getResult();
     }

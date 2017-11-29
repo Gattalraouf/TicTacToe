@@ -20,7 +20,6 @@ import com.abderraouf.gattal.GameCode.Player;
 import static java.lang.Math.abs;
 
 public class MainGameScreen extends AppCompatActivity implements
-        WinOrLoseFragment.OnFragmentInteractionListener,
         WinOrLoseFragment.FragmentCommunicator,
         WinOrLoseFragment.FragmentResultDetector{
     static boolean vsComputer ;
@@ -167,11 +166,6 @@ public class MainGameScreen extends AppCompatActivity implements
 
     public void reinitializeGame(){
         GameManager.board = new int[]{2, 2, 2, 2, 2, 2, 2, 2, 2};
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override

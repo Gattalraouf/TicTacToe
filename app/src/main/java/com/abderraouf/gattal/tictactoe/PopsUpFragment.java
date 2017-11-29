@@ -48,6 +48,7 @@ public class PopsUpFragment extends Fragment implements View.OnClickListener{
 
                 getPlayer(view);
                 GameManager.sharedInfoEditor.putInt("firstOpen",0).apply();
+                GameManager.setFirstOpen(0);
 
                 getFragmentManager().beginTransaction()
                         .remove(PopsUpFragment.this).commit();
@@ -58,8 +59,9 @@ public class PopsUpFragment extends Fragment implements View.OnClickListener{
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPlayer(view);
+
                 GameManager.sharedInfoEditor.putInt("firstOpen",0).apply();
+                GameManager.setFirstOpen(0);
                     getFragmentManager().beginTransaction()
                             .remove(PopsUpFragment.this).commit();
 
